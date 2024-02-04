@@ -338,7 +338,7 @@ const ProfileSection = () => {
   async function updateBalanceInDBAndLocalStorage(userID, amount) {
     try {
       // Make a POST request to the endpoint to update the balance
-      const response = await fetch(`https://plantalife-node-server.onrender.com/api/v1/users/updateBalance?userID=${userID}&amount=${amount}`, {
+      const response = await fetch(`http://localhost:8000/api/v1/users/updateBalance?userID=${userID}&amount=${amount}`, {
         method: 'POST',
       });
   
@@ -382,7 +382,7 @@ const ProfileSection = () => {
         amount: amount,
         date: new Date().toISOString() // Assuming the date is the current date
       });
-      const response = await fetch(`https://plantalife-node-server.onrender.com/api/v1/transactions/new?${queryParams}`);
+      const response = await fetch(`http://localhost:8000/api/v1/transactions/new?${queryParams}`);
   
       if (!response.ok) {
         throw new Error('Failed to add transaction');
@@ -430,7 +430,7 @@ const ProfileSection = () => {
       formDataUpload.append("longitude", coordinates.longitude);
       formDataUpload.append("plantImage", file);
   
-      const response = await fetch("https://plantalife-node-server.onrender.com/api/v1/trees/new", {
+      const response = await fetch("http://localhost:8000/api/v1/trees/new", {
         method: "POST",
         body: formDataUpload,
       });
@@ -482,7 +482,7 @@ const ProfileSection = () => {
         console.log("True value")
         try {
           // Make POST request to update seeds in the database
-          const response = await fetch(`https://plantalife-node-server.onrender.com/api/v1/users/updateSeeds/${user._id}`, {
+          const response = await fetch(`http://localhost:8000/api/v1/users/updateSeeds/${user._id}`, {
             method: "POST",
           });
       

@@ -8,7 +8,7 @@ const Leaderboard = () => {
     // Fetch users from the API endpoint
     const fetchUsers = async () => {
       try {
-        const response = await fetch('https://plantalife.vercel.app/api/v1/users/sortByTreesPlanted');
+        const response = await fetch('https://plantalife-node-server.onrender.com/api/v1/users/sortByTreesPlanted');
         if (response.ok) {
           const users = await response.json();
           setUsers(users.data); // Assuming the response contains an array of users
