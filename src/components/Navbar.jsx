@@ -10,7 +10,7 @@ const Navbar = () => {
   const location = useLocation();
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/v1/users/logout', {
+      const response = await fetch('https://plantalife-node-server.onrender.com/api/v1/users/logout', {
         method: 'POST',
         credentials: 'include', // Include cookies in the request
         headers: {
