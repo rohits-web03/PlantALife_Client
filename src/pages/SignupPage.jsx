@@ -70,7 +70,7 @@ const SignUpPage = () => {
       formDataToSend.append('metamaskAddress', formData.metamaskAddress);
       formDataToSend.append('profileImage', formData.profileImage);
   
-      const response = await fetch('http://localhost:8000/api/v1/users/signup', {
+      const response = await fetch('https://plantalife-node-server.onrender.com/api/v1/users/signup', {
         method: 'POST',
         body: formDataToSend,
       });
