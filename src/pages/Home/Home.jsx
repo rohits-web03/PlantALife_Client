@@ -6,6 +6,7 @@ import About from './About.jsx'
 import Contact from './Contact.jsx'
 import Footer from '../../components/Footer.jsx'
 import { navLinks } from '../../constants/index.js'
+import { FaUserAlt } from "react-icons/fa";
 
 const Home = () => {
   const user=localStorage.getItem('user');

@@ -497,7 +497,7 @@ const ProfileSection = () => {
           const updatedUser = { ...user, seeds: user.seeds + 10 }; // Assuming you increment seeds by 10
           localStorage.setItem("user", JSON.stringify(updatedUser));
           console.log("Seeds updated successfully in local storage");
-          if(user.metamaskAddress>5){
+          if(user.metamaskAddress>25){
             setClaim(true);
           }
           alert("Image Successfully Verified.\n10 Seeds have been credited to your account");
