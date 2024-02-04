@@ -1,15 +1,52 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Make sure to import Link if using React Router
+import { Link, useNavigate } from 'react-router-dom'; 
+import Cookies from "js-cookie";
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate(); // Hook to navigate programmatically
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Email:",email,"Password:",password);
-    setEmail('')
-    setPassword('')
+
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password }) // Send email and password in the request body
+      });
+
+      if (!response.ok) {
+        throw new Error('Login failed');
+      }
+
+      const data = await response.json();
+      const { user, accessToken, refreshToken } = data;
+
+      // Set user data in local storage
+      localStorage.setItem('user', JSON.stringify(user));
+
+      // Set cookies
+      Cookies.set('accessToken', accessToken, { expires: 1 });
+      Cookies.set('refreshToken', refreshToken, { expires: 10 });
+
+      // Reset form fields
+      setEmail('');
+      setPassword('');
+
+      // Redirect to home page after successful login
+      navigate('/');
+
+      // Show an alert or handle login success in other ways
+      alert('Login successful');
+      console.log('Login successful');
+    } catch (error) {
+      console.error('Error logging in:', error);
+      // Handle login failure
+    }
   };
 
   return (
@@ -80,5 +117,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
-

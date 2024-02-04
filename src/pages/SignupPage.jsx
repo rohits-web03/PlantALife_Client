@@ -200,7 +200,13 @@ const SignUpPage = () => {
               </div>
             </div>
 
-            {/* Sign Up button */}
+            <div className="text-sm text-center flex justify-start items-center gap-2">
+              <p className="text-gray-600">Have an account?</p>
+              <Link to="/login" className="font-medium text-green-600 hover:text-green-500">
+                Login
+              </Link>
+            </div>
+
             <div>
               <button
                 type="submit"

@@ -1,9 +1,44 @@
 import hamburger from "../assets/hamburger.svg";
 import { navLinks } from "../constants/index";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate, useLocation } from "react-router-dom";
 import { FaUserAlt } from "react-icons/fa";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
+  const user=localStorage.getItem("user");
+  const navigate = useNavigate(); 
+  const location = useLocation();
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/users/logout', {
+        method: 'POST',
+        credentials: 'include', // Include cookies in the request
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (response.ok) {
+        console.log('Logout successful');
+        localStorage.removeItem('user');
+        Cookies.remove('accessToken');
+        Cookies.remove('refreshToken');
+  
+        // Check if current route is "/"
+        if (location.pathname === '/') {
+          window.location.reload(); // Refresh the page
+        } else {
+          navigate('/'); // Navigate to "/"
+        }
+      } else {
+        console.error('Logout failed');
+        // Handle logout failure
+      }
+    } catch (error) {
+      console.error('Error logging out:', error);
+      // Handle logout error
+    }
+  };
 
   return (
     <header className="fixed padding-x pt-8 z-10 w-full h-[60px] bg-white bg-opacity-90 backdrop-blur-md pb-16">
@@ -28,19 +63,30 @@ const Navbar = () => {
               </a>
             </li>
           ))}
-          <li>
+          {!user?
+            <li>
               <Link to="/signup"
                 className="text-lg bg-green-600 rounded-lg px-4 py-2 text-white"
               >
                 Sign up
               </Link>
-          </li>
-          <li>
-              <Link to="/profile"
-              >
-                <FaUserAlt className="text-2xl" />
-              </Link>
-          </li>
+          </li>:
+          <div className="flex justify-center items-center gap-16">
+            <li>
+                <Link to="/profile"
+                >
+                  <FaUserAlt className="text-2xl" />
+                </Link>
+            </li>
+            <li>
+                <button 
+                  onClick={handleLogout}
+                  className="text-lg bg-green-600 rounded-lg px-4 py-2 text-white"
+                >
+                  Logout
+                </button>
+            </li>
+          </div>}
         </ul>
         <div className="hidden max-lg:block">
           <img
