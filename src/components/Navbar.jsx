@@ -3,11 +3,9 @@ import { navLinks } from "../constants/index";
 import { Link ,useNavigate, useLocation } from "react-router-dom";
 import { FaUserAlt } from "react-icons/fa";
 import Cookies from "js-cookie";
-import { useState } from "react";
 
-const Navbar = () => {
+const Navbar = ({toggle}) => {
   const user=localStorage.getItem("user");
-  const [dropdown,setDropdown]=useState(false);
   const navigate = useNavigate(); 
   const location = useLocation();
   const handleLogout = async () => {
@@ -68,7 +66,7 @@ const Navbar = () => {
           {!user?
             <li>
               <Link to="/signup"
-                className="text-lg bg-green-600 rounded-lg px-4 py-2 text-white"
+                className="text-lg bg-green-500 hover:bg-green-700 rounded-lg px-4 py-2 text-white"
               >
                 Sign up
               </Link>
@@ -90,8 +88,8 @@ const Navbar = () => {
             </li>
           </div>}
         </ul>
-        <div
-          onClick={()=>{setDropdown(!dropdown)}}
+        <button
+          onClick={()=>toggle()}
          className="cursor-pointer hidden max-lg:block">
           <img
             src={hamburger}
@@ -99,10 +97,7 @@ const Navbar = () => {
             width={25}
             height={25}
           />
-        </div>
-        {dropdown && <div className="absolute bg-white w-[70%] h-screen top-3 ">
-
-        </div>}
+        </button>
       </nav>
     </header>
   );

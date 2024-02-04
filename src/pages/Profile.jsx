@@ -500,6 +500,7 @@ const ProfileSection = () => {
           if(user.metamaskAddress>5){
             setClaim(true);
           }
+          alert("Image Successfully Verified.\n10 Seeds have been credited to your account");
           window.location.reload();
         } catch (error) {
           console.error("Error updating seeds:", error);
