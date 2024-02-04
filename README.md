@@ -1,4 +1,4 @@
-# PlantALife Client Code README
+# PlantALife 
 
 Welcome to PlantALife - a platform dedicated to incentivizing tree planting for the betterment of our planet Earth. This README provides an overview of the client-side code for interacting with PlantALife's services and earning LeafCoin tokens by planting trees.
 
